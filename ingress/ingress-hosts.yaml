@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-hosts
+spec:
+  rules:
+    - host: main.tigunov.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: main
+                port:
+                  number: 80
+            pathType: ImplementationSpecific
+
+    - host: ver2.tigunov.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: ver2
+                port:
+                  number: 80
+            pathType: ImplementationSpecific
+
+    - host: tomcat.tigunov.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: tomcat
+                port:
+                  number: 8080
+            pathType: ImplementationSpecific
