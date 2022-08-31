@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deployment
+  labels:
+    app: my-k8s-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      project: t-it
+  template:
+    metadata:
+      labels:
+        project: t-it # Service will look for those PODs labels
+    spec:
+      containers:
+        - name: t-it-web
+          image: tigunov/k8sphp:v2
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-single-pod-service
+  labels:
+    env: prod
+    owner: YuriyTigunov
+spec:
+  selector:
+    project: t-it # selecting PODS with those labels
+  ports:
+    - port: 80 # port on load balancer
+      name: app-listener
+      protocol: TCP
+      targetPort: 80 # port on POD
+  type: LoadBalancer

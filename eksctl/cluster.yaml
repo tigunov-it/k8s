@@ -1,0 +1,13 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: k8s-test
+  region: us-west-2
+
+nodeGroups:
+  - name: ng-1
+    labels: { env: tes-k8s }
+    instanceType: t3.medium
+    desiredCapacity: 3
+    volumeSize: 15
